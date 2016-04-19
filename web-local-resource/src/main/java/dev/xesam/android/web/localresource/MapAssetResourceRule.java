@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.webkit.WebResourceResponse;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,10 +21,20 @@ public class MapAssetResourceRule implements ResourceRule {
     @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public WebResourceResponse shouldInterceptRequest(Context context, Uri uri) {
+        String key = uri.toString();
+        if (mapper.containsKey(key)) {
+            String path = mapper.get(key);
+            try {
+                InputStream inputStream = context.getAssets().open(path);
+                return new WebResourceResponse(null, Charset.defaultCharset().name(), inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
     public void put(String key, String value) {
-
+        mapper.put(key, value);
     }
 }

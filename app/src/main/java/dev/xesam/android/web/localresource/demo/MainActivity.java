@@ -1,16 +1,10 @@
 package dev.xesam.android.web.localresource.demo;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import dev.xesam.android.web.localresource.LocalResourceHandler;
@@ -38,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         vWebView.getSettings().setJavaScriptEnabled(true);
         vWebView.getSettings().setAllowFileAccess(true);
-        
+
         mLocalResourceHandler = new LocalResourceHandler();
         mLocalResourceHandler.addRule(new UrlAssetResourceRule());
         vWebView.setWebViewClient(new LocalResourceWebViewClient(mLocalResourceHandler));
