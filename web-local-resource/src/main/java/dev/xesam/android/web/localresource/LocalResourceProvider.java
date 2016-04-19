@@ -5,10 +5,8 @@ import android.content.ContentValues;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
-import android.support.v4.os.EnvironmentCompat;
 import android.util.Log;
 
 import java.io.File;
