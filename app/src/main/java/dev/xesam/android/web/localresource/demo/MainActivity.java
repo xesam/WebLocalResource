@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import dev.xesam.android.web.localresource.LocalResourceHandler;
+import dev.xesam.android.web.localresource.LocalResourceWebViewClient;
 import dev.xesam.android.web.localresource.UrlAssetResourceRule;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,35 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
         vWebView.getSettings().setJavaScriptEnabled(true);
         vWebView.getSettings().setAllowFileAccess(true);
+        
         mLocalResourceHandler = new LocalResourceHandler();
         mLocalResourceHandler.addRule(new UrlAssetResourceRule());
-
-        vWebView.setWebViewClient(new WebViewClient() {
-
-            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-                Log.e("shouldInterceptRequest", url);
-                WebResourceResponse webResourceResponse = mLocalResourceHandler.shouldInterceptRequest(MainActivity.this, url);
-                if (webResourceResponse == null) {
-                    return super.shouldInterceptRequest(view, url);
-                } else {
-                    return webResourceResponse;
-                }
-            }
-
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                Log.e("shouldInterceptRequest", request.getMethod() + ":" + request.getUrl());
-                WebResourceResponse webResourceResponse = mLocalResourceHandler.shouldInterceptRequest(MainActivity.this, request);
-                if (webResourceResponse == null) {
-                    return super.shouldInterceptRequest(view, request);
-                } else {
-                    return webResourceResponse;
-                }
-            }
-        });
+        vWebView.setWebViewClient(new LocalResourceWebViewClient(mLocalResourceHandler));
 
         vLocal.setOnClickListener(new View.OnClickListener() {
             @Override

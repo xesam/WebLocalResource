@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 
@@ -22,9 +23,10 @@ public class LocalResourceHandler {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public WebResourceResponse shouldInterceptRequest(Context context, Uri uri) {
+    public WebResourceResponse shouldInterceptRequest(Context context, Uri uri, WebResourceResponse defaultResource) {
+        Log.d("shouldInterceptRequest", uri.toString());
         if (rules == null || rules.size() == 0) {
-            return null;
+            return defaultResource;
         }
         for (ResourceRule rule : rules) {
             WebResourceResponse webResourceResponse = rule.shouldInterceptRequest(context, uri);
@@ -32,15 +34,15 @@ public class LocalResourceHandler {
                 return webResourceResponse;
             }
         }
-        return null;
+        return defaultResource;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public WebResourceResponse shouldInterceptRequest(Context context, WebResourceRequest request) {
-        return shouldInterceptRequest(context, request.getUrl());
+    public WebResourceResponse shouldInterceptRequest(Context context, WebResourceRequest request, WebResourceResponse defaultResource) {
+        return shouldInterceptRequest(context, request.getUrl(), defaultResource);
     }
 
-    public WebResourceResponse shouldInterceptRequest(Context context, String url) {
-        return shouldInterceptRequest(context, Uri.parse(url));
+    public WebResourceResponse shouldInterceptRequest(Context context, String url, WebResourceResponse defaultResource) {
+        return shouldInterceptRequest(context, Uri.parse(url), defaultResource);
     }
 }

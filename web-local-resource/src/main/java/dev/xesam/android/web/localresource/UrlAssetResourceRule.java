@@ -25,7 +25,6 @@ public class UrlAssetResourceRule implements ResourceRule {
                 if (path.startsWith("/")) {
                     path = path.substring(1);
                 }
-//                String filepath = path.replace()
                 InputStream inputStream = context.getAssets().open(path);
                 return new WebResourceResponse(null, Charset.defaultCharset().name(), inputStream);
             } catch (IOException e) {
