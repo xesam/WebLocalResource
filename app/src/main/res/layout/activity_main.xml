@@ -17,13 +17,6 @@
             android:text="local" />
 
         <Button
-            android:id="@+id/remote2_3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="remote 2.3" />
-
-        <Button
             android:id="@+id/remote3_0"
             android:layout_width="0dp"
             android:layout_height="match_parent"

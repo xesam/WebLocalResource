@@ -14,7 +14,6 @@ import dev.xesam.android.web.localresource.UrlAssetResourceRule;
 public class MainActivity extends AppCompatActivity {
     private WebView vWebView;
     private Button vLocal;
-    private Button vRemote2_3;
     private Button vRemote3_0;
 
     LocalResourceHandler mLocalResourceHandler;
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         vWebView = (WebView) findViewById(R.id.cll_web_view);
         vLocal = (Button) findViewById(R.id.local);
-        vRemote2_3 = (Button) findViewById(R.id.remote2_3);
         vRemote3_0 = (Button) findViewById(R.id.remote3_0);
 
         vWebView.getSettings().setJavaScriptEnabled(true);
@@ -41,13 +39,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 vWebView.loadUrl("file:///android_asset/local.html");
-            }
-        });
-
-        vRemote2_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vWebView.loadUrl("http://1192.168.0.23/2_3.html");
             }
         });
 
