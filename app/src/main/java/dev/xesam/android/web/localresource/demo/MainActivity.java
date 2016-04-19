@@ -6,17 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ViewFlipper;
 
 import dev.xesam.android.web.localresource.LocalResourceHandler;
 import dev.xesam.android.web.localresource.LocalResourceWebViewClient;
 import dev.xesam.android.web.localresource.UrlAssetResourceRule;
 
+@SuppressLint("SetJavaScriptEnabled")
 public class MainActivity extends AppCompatActivity {
-    private WebView vWebView;
-    private Button vLocal;
-    private Button vRemote3_0;
-
-    LocalResourceHandler mLocalResourceHandler;
+    private ViewFlipper vViewFlipper;
+    private WebView vLocal;
+    private WebView vRemote;
+    private Button vLoadLocal;
+    private Button vLoadRemote3_0;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -24,29 +26,50 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        vWebView = (WebView) findViewById(R.id.cll_web_view);
-        vLocal = (Button) findViewById(R.id.local);
-        vRemote3_0 = (Button) findViewById(R.id.remote3_0);
+        vViewFlipper = (ViewFlipper) findViewById(R.id.cll_flipper);
 
-        vWebView.getSettings().setJavaScriptEnabled(true);
-        vWebView.getSettings().setAllowFileAccess(true);
+        vLoadLocal = (Button) findViewById(R.id.local);
+        vLocal = (WebView) findViewById(R.id.cll_local);
 
-        mLocalResourceHandler = new LocalResourceHandler();
-        mLocalResourceHandler.addRule(new UrlAssetResourceRule());
-        vWebView.setWebViewClient(new LocalResourceWebViewClient(mLocalResourceHandler));
+        vLoadRemote3_0 = (Button) findViewById(R.id.remote3_0);
+        vRemote = (WebView) findViewById(R.id.cll_remote);
 
-        vLocal.setOnClickListener(new View.OnClickListener() {
+        vLoadLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vWebView.loadUrl("file:///android_asset/local.html");
+                vViewFlipper.setDisplayedChild(0);
+                testLocal();
             }
         });
 
-        vRemote3_0.setOnClickListener(new View.OnClickListener() {
+        vLoadRemote3_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vWebView.loadUrl("http://192.168.0.27/3_0.html");
+                vViewFlipper.setDisplayedChild(1);
+                testRemote();
             }
         });
+    }
+
+    private void testLocal() {
+        vLocal.getSettings().setJavaScriptEnabled(true);
+        vLocal.getSettings().setAllowFileAccess(true);
+//        LocalResourceHandler localResourceHandler = new LocalResourceHandler();
+//        MapAssetResourceRule rule = new MapAssetResourceRule();
+//        rule.put("http://192.168.0.27/css/app_1.css", "");
+//        rule.put("http://192.168.0.27/js/app_1.js", "");
+//        rule.put("http://192.168.0.27/images/app_1.png", "");
+//        localResourceHandler.addRule(rule);
+//        vLocal.setWebViewClient(new LocalResourceWebViewClient(localResourceHandler));
+        vLocal.loadUrl("file:///android_asset/local.html");
+    }
+
+    private void testRemote() {
+        vRemote.getSettings().setJavaScriptEnabled(true);
+        vRemote.getSettings().setAllowFileAccess(true);
+        LocalResourceHandler localResourceHandler = new LocalResourceHandler();
+        localResourceHandler.addRule(new UrlAssetResourceRule());
+        vRemote.setWebViewClient(new LocalResourceWebViewClient(localResourceHandler));
+        vRemote.loadUrl("http://192.168.0.27/3_0.html");
     }
 }

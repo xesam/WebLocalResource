@@ -24,9 +24,21 @@
             android:text="remote 3.0" />
     </LinearLayout>
 
-    <WebView
-        android:id="@+id/cll_web_view"
+    <ViewFlipper
+        android:id="@+id/cll_flipper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/cll_local"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <WebView
+            android:id="@+id/cll_remote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </ViewFlipper>
 
 </LinearLayout>
