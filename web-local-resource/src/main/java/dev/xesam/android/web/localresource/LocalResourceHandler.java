@@ -4,31 +4,32 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
-import android.text.TextUtils;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by xesamguo@gmail.com on 10/16/15.
  */
-public final class LocalResourceHandler {
+public class LocalResourceHandler {
+
+    public List<ResourceRule> rules = new ArrayList<>();
+
+    public void addRule(ResourceRule rule) {
+        rules.add(rule);
+    }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public WebResourceResponse shouldInterceptRequest(Context context, Uri uri) {
-        String host = uri.getHost();
-        if (!TextUtils.isEmpty(host) && host.startsWith(LocalResourceProvider.AUTHORITIES)) {
-            try {
-                String fileName = LocalResourceUtils.getAssetsFilePath(uri);
-                InputStream inputStream = context.getAssets().open(fileName);
-                return new WebResourceResponse(null, "utf-8", inputStream);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (rules == null || rules.size() == 0) {
+            return null;
+        }
+        for (ResourceRule rule : rules) {
+            WebResourceResponse webResourceResponse = rule.shouldInterceptRequest(context, uri);
+            if (webResourceResponse != null) {
+                return webResourceResponse;
             }
         }
         return null;

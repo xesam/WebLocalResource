@@ -1,5 +1,6 @@
 package dev.xesam.android.web.localresource.demo;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import dev.xesam.android.web.localresource.LocalResourceHandler;
+import dev.xesam.android.web.localresource.UrlAssetResourceRule;
 
 public class MainActivity extends AppCompatActivity {
     private WebView vWebView;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     LocalResourceHandler mLocalResourceHandler;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         vWebView.getSettings().setJavaScriptEnabled(true);
         vWebView.getSettings().setAllowFileAccess(true);
         mLocalResourceHandler = new LocalResourceHandler();
+        mLocalResourceHandler.addRule(new UrlAssetResourceRule());
 
         vWebView.setWebViewClient(new WebViewClient() {
 
@@ -73,14 +77,14 @@ public class MainActivity extends AppCompatActivity {
         vRemote2_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vWebView.loadUrl("http://192.168.1.102/remote2_3.html");
+                vWebView.loadUrl("http://1192.168.0.23/2_3.html");
             }
         });
 
         vRemote3_0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vWebView.loadUrl("http://192.168.1.102/remote3_0.html");
+                vWebView.loadUrl("http://192.168.0.27/3_0.html");
             }
         });
     }
