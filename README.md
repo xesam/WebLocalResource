@@ -16,6 +16,9 @@
             return null;
         }
     }
+    
+只需要对 request 进行拦截，然后按照一定规则将 WebResourceResponse 的返回替换成本地的资源即可。
 
 ## App 内置网页访问远程资源
 
+待补充
