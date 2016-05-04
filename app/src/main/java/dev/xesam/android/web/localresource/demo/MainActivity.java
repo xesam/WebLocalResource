@@ -70,6 +70,6 @@ public class MainActivity extends AppCompatActivity {
         LocalResourceHandler localResourceHandler = new LocalResourceHandler();
         localResourceHandler.addRule(new UrlAssetResourceRule());
         vRemote.setWebViewClient(new LocalResourceWebViewClient(localResourceHandler));
-        vRemote.loadUrl("http://192.168.0.27/3_0.html");
+        vRemote.loadUrl("http://xesam.github.io/html/3_0.html");
     }
 }
