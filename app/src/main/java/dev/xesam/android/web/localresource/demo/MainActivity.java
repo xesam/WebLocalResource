@@ -10,6 +10,7 @@ import android.widget.ViewFlipper;
 
 import dev.xesam.android.web.localresource.LocalResourceHandler;
 import dev.xesam.android.web.localresource.LocalResourceWebViewClient;
+import dev.xesam.android.web.localresource.MapAssetResourceRule;
 import dev.xesam.android.web.localresource.UrlAssetResourceRule;
 
 @SuppressLint("SetJavaScriptEnabled")
@@ -56,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
     private void testLocal() {
         vLocal.getSettings().setJavaScriptEnabled(true);
         vLocal.getSettings().setAllowFileAccess(true);
-//        LocalResourceHandler localResourceHandler = new LocalResourceHandler();
-//        MapAssetResourceRule rule = new MapAssetResourceRule();
-//        rule.put("http://192.168.0.27/css/app_1.css", "");
-//        rule.put("http://192.168.0.27/js/app_1.js", "");
-//        rule.put("http://192.168.0.27/images/app_1.png", "");
-//        localResourceHandler.addRule(rule);
-//        vLocal.setWebViewClient(new LocalResourceWebViewClient(localResourceHandler));
+        LocalResourceHandler localResourceHandler = new LocalResourceHandler();
+        MapAssetResourceRule rule = new MapAssetResourceRule();
+        rule.put("http://xesam.github.io/html/css/app_1.css", "html/css/app.css");
+        rule.put("http://xesam.github.io/html/js/app_1.js", "html/js/app.js");
+        rule.put("http://xesam.github.io/html/images/app_1.png", "html/images/app.png");
+        localResourceHandler.addRule(rule);
+        vLocal.setWebViewClient(new LocalResourceWebViewClient(localResourceHandler));
         vLocal.loadUrl("file:///android_asset/html/local.html");
     }
 
