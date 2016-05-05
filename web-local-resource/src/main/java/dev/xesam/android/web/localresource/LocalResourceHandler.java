@@ -16,6 +16,8 @@ import java.util.List;
  */
 public class LocalResourceHandler {
 
+    public static final boolean DEBUG = false;
+
     public List<ResourceRule> rules = new ArrayList<>();
 
     public void addRule(ResourceRule rule) {
@@ -23,8 +25,10 @@ public class LocalResourceHandler {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public WebResourceResponse shouldInterceptRequest(Context context, Uri uri, WebResourceResponse defaultResource) {
-        Log.d("shouldInterceptRequest", uri.toString());
+    protected WebResourceResponse shouldInterceptRequest(Context context, Uri uri, WebResourceResponse defaultResource) {
+        if (DEBUG) {
+            Log.d("shouldInterceptRequest", uri.toString());
+        }
         if (rules == null || rules.size() == 0) {
             return defaultResource;
         }
