@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 testRemote();
             }
         });
+
+        LocalResourceHandler.DEBUG = true;
     }
 
     private void testLocal() {
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 //        rule.put("http://192.168.0.27/images/app_1.png", "");
 //        localResourceHandler.addRule(rule);
 //        vLocal.setWebViewClient(new LocalResourceWebViewClient(localResourceHandler));
-        vLocal.loadUrl("file:///android_asset/local.html");
+        vLocal.loadUrl("file:///android_asset/html/local.html");
     }
 
     private void testRemote() {

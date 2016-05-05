@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.WebResourceResponse;
 
 import java.io.IOException;
@@ -26,9 +27,14 @@ public class UrlAssetResourceRule implements ResourceRule {
                     path = path.substring(1);
                 }
                 InputStream inputStream = context.getAssets().open(path);
+                if (LocalResourceHandler.DEBUG) {
+                    Log.d("intercept hit", uri.toString() + " --> " + path);
+                }
                 return new WebResourceResponse(null, Charset.defaultCharset().name(), inputStream);
             } catch (IOException e) {
-                e.printStackTrace();
+                if (LocalResourceHandler.DEBUG) {
+                    Log.d("intercept not found", uri.toString());
+                }
             }
         }
         return null;

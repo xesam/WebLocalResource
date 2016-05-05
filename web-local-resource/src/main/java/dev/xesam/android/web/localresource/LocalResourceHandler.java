@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class LocalResourceHandler {
 
-    public static final boolean DEBUG = false;
+    public static boolean DEBUG = false;
 
     public List<ResourceRule> rules = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class LocalResourceHandler {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected WebResourceResponse shouldInterceptRequest(Context context, Uri uri, WebResourceResponse defaultResource) {
         if (DEBUG) {
-            Log.d("shouldInterceptRequest", uri.toString());
+            Log.d("intercept", uri.toString());
         }
         if (rules == null || rules.size() == 0) {
             return defaultResource;
