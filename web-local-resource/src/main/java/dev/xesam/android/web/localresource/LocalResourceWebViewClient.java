@@ -2,6 +2,7 @@ package dev.xesam.android.web.localresource;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -13,10 +14,10 @@ import android.webkit.WebViewClient;
  */
 public class LocalResourceWebViewClient extends WebViewClient {
 
-    private LocalResourceHandler mLocalResourceHandler;
+    private LocalResourceInterceptor mLocalResourceInterceptor;
 
-    public LocalResourceWebViewClient(LocalResourceHandler localResourceHandler) {
-        mLocalResourceHandler = localResourceHandler;
+    public LocalResourceWebViewClient(@NonNull LocalResourceInterceptor localResourceInterceptor) {
+        mLocalResourceInterceptor = localResourceInterceptor;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -26,7 +27,7 @@ public class LocalResourceWebViewClient extends WebViewClient {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return defaultResource;
         } else {
-            return mLocalResourceHandler.shouldInterceptRequest(view.getContext(), url, defaultResource);
+            return mLocalResourceInterceptor.shouldInterceptRequest(view.getContext(), url, defaultResource);
         }
     }
 
@@ -34,6 +35,6 @@ public class LocalResourceWebViewClient extends WebViewClient {
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
         WebResourceResponse defaultResource = super.shouldInterceptRequest(view, request);
-        return mLocalResourceHandler.shouldInterceptRequest(view.getContext(), request, defaultResource);
+        return mLocalResourceInterceptor.shouldInterceptRequest(view.getContext(), request, defaultResource);
     }
 }

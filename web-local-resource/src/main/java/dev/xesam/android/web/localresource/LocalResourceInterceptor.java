@@ -14,13 +14,13 @@ import java.util.List;
 /**
  * Created by xesamguo@gmail.com on 10/16/15.
  */
-public class LocalResourceHandler {
+public class LocalResourceInterceptor {
 
     public static boolean DEBUG = false;
 
-    public List<ResourceRule> rules = new ArrayList<>();
+    public List<InterceptRule> rules = new ArrayList<>();
 
-    public void addRule(ResourceRule rule) {
+    public void addRule(InterceptRule rule) {
         rules.add(rule);
     }
 
@@ -32,7 +32,7 @@ public class LocalResourceHandler {
         if (rules == null || rules.size() == 0) {
             return defaultResource;
         }
-        for (ResourceRule rule : rules) {
+        for (InterceptRule rule : rules) {
             WebResourceResponse webResourceResponse = rule.shouldInterceptRequest(context, uri);
             if (webResourceResponse != null) {
                 return webResourceResponse;

@@ -8,10 +8,10 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ViewFlipper;
 
-import dev.xesam.android.web.localresource.LocalResourceHandler;
+import dev.xesam.android.web.localresource.LocalResourceInterceptor;
 import dev.xesam.android.web.localresource.LocalResourceWebViewClient;
-import dev.xesam.android.web.localresource.MapAssetResourceRule;
-import dev.xesam.android.web.localresource.UrlAssetResourceRule;
+import dev.xesam.android.web.localresource.MapAssetInterceptRule;
+import dev.xesam.android.web.localresource.UrlAssetInterceptRule;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class MainActivity extends AppCompatActivity {
@@ -51,28 +51,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        LocalResourceHandler.DEBUG = true;
+        LocalResourceInterceptor.DEBUG = true;
     }
 
     private void testLocal() {
         vLocal.getSettings().setJavaScriptEnabled(true);
         vLocal.getSettings().setAllowFileAccess(true);
-        LocalResourceHandler localResourceHandler = new LocalResourceHandler();
-        MapAssetResourceRule rule = new MapAssetResourceRule();
+        LocalResourceInterceptor localResourceInterceptor = new LocalResourceInterceptor();
+        MapAssetInterceptRule rule = new MapAssetInterceptRule();
         rule.put("http://xesam.github.io/html/css/app_1.css", "html/css/app.css");
         rule.put("http://xesam.github.io/html/js/app_1.js", "html/js/app.js");
         rule.put("http://xesam.github.io/html/images/app_1.png", "html/images/app.png");
-        localResourceHandler.addRule(rule);
-        vLocal.setWebViewClient(new LocalResourceWebViewClient(localResourceHandler));
+        localResourceInterceptor.addRule(rule);
+        vLocal.setWebViewClient(new LocalResourceWebViewClient(localResourceInterceptor));
         vLocal.loadUrl("file:///android_asset/html/local.html");
     }
 
     private void testRemote() {
         vRemote.getSettings().setJavaScriptEnabled(true);
         vRemote.getSettings().setAllowFileAccess(true);
-        LocalResourceHandler localResourceHandler = new LocalResourceHandler();
-        localResourceHandler.addRule(new UrlAssetResourceRule());
-        vRemote.setWebViewClient(new LocalResourceWebViewClient(localResourceHandler));
+        LocalResourceInterceptor localResourceInterceptor = new LocalResourceInterceptor();
+        localResourceInterceptor.addRule(new UrlAssetInterceptRule());
+        vRemote.setWebViewClient(new LocalResourceWebViewClient(localResourceInterceptor));
         vRemote.loadUrl("http://xesam.github.io/html/3_0.html");
     }
 }
