@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
         vLocal.getSettings().setAllowFileAccess(true);
         LocalResourceInterceptor localResourceInterceptor = new LocalResourceInterceptor();
         MapAssetInterceptRule rule = new MapAssetInterceptRule();
-        rule.put("http://xesam.github.io/html/css/app_1.css", "html/css/app.css");
-        rule.put("http://xesam.github.io/html/js/app_1.js", "html/js/app.js");
-        rule.put("http://xesam.github.io/html/images/app_1.png", "html/images/app.png");
+        rule.put("http://xesam.github.io/html/css/app_1.css", "v2/html/css/app.css");
+        rule.put("http://xesam.github.io/html/js/app_1.js", "v2/html/js/app.js");
+        rule.put("http://xesam.github.io/html/images/app_1.png", "v2/html/images/app.png");
         localResourceInterceptor.addRule(rule);
         vLocal.setWebViewClient(new LocalResourceWebViewClient(localResourceInterceptor));
-        vLocal.loadUrl("file:///android_asset/html/local.html");
+        vLocal.loadUrl("file:///android_asset/v2/html/local.html");
     }
 
     private void testRemote() {

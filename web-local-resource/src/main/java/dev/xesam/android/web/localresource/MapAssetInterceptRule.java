@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.webkit.WebResourceResponse;
 
 import java.io.IOException;
@@ -26,9 +27,14 @@ public class MapAssetInterceptRule implements InterceptRule {
             String path = mapper.get(key);
             try {
                 InputStream inputStream = context.getAssets().open(path);
+                if (LocalResourceInterceptor.DEBUG) {
+                    Log.d("intercept hit", uri.toString() + " --> " + path);
+                }
                 return new WebResourceResponse(null, Charset.defaultCharset().name(), inputStream);
             } catch (IOException e) {
-                e.printStackTrace();
+                if (LocalResourceInterceptor.DEBUG) {
+                    Log.d("intercept not found", uri.toString());
+                }
             }
         }
         return null;

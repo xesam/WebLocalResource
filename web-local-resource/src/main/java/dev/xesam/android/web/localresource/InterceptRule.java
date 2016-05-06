@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.webkit.WebResourceResponse;
 
 /**
- * the rule to get local resource
+ * the rule to intercept resource
  * Created by xesamguo@gmail.com on 16-4-18.
  */
 public interface InterceptRule {
