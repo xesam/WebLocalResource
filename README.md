@@ -51,6 +51,8 @@ WebView 在加载 http://xesam.github.io//css/app.css?v=6 之前，先进行拦�
     
 只需要对 request 进行拦截，然后按照一定规则将 WebResourceResponse 的返回替换成本地的资源即可。
 
+![1](android_webview_local_1.png)
+
 具体实现参考：[https://github.com/xesam/WebLocalResource](https://github.com/xesam/WebLocalResource)
 
 ## 动态下载预置资源
