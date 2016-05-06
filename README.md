@@ -11,7 +11,7 @@ WebView 打开网页的时候，如果网页里面包含较多的 CSS， JS，�
     <link rel="stylesheet" href="http://xesam.github.io/css/app.css?v=v2">
 ```
 
-WebView 在加载 http://xesam.github.io//css/app.css?v=6 之前，先进行拦截：
+WebView 在加载 http://xesam.github.io/css/app.css?v=v2 之前，先进行拦截：
 
 1. 获取 url （http://xesam.github.io/css/app.css） 与版本号（v2）
 2. 依据规则查找对应的本地资源
