@@ -1,3 +1,7 @@
+Deprecated
+
+see [LocalWeb](https://github.com/xesam/LocalWeb)
+
 ## 远程网页访问 App 内置本地资源
 
 WebView 打开网页的时候，如果网页里面包含较多的 CSS， JS，图片等资源，可能需要非常长的时间。
